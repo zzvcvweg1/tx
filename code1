@@ -497,11 +497,11 @@ function setupMusicPlayer() {
     if (document.getElementById("player")) return;
 
     const defaultSongs = [
-        ["Amarillo By Morning", "George Strait", "https://i.postimg.cc/Xvj0sgq2/1200x1200bf-60.jpg", "https://audio.jukehost.co.uk/Ky9CuUDTHKofacJVOdC4eWGLX7vc9Tdq"],
-        ["These Boots Are Made For Walkin'", "Nancy Sinatra", "https://i.postimg.cc/bdc7kxKX/71l4Jku5yu-L-SL1200.jpg", "https://audio.jukehost.co.uk/LZxF8483nd3iFZtJebOPIxEOM8OLdcGu"],
-        ["Ring Of Fire", "Johnny Cash", "https://i.postimg.cc/8c2Sw-Qfq/249479.jpg", "https://dl.dropboxusercontent.com/scl/fi/lxjlbdidp6zm7u8huw6yu/motherfucker.mp3?rlkey=cqqauq3dkffwcfvr7p5ir2b0p&st=3ypl5rd4"],
-        ["Snowqueen Of Texas", "The Mamas & Papas", "https://i.postimg.cc/pT1xhn23/r-584021-1560007496-1920.jpg", "https://audio.jukehost.co.uk/fGb2FosmrSjpx8SSZODpS5i8M1mA3O3Y"],
-        ["Southern Nights", "Glen Campbell", "https://i.postimg.cc/T1D8K7NK/1200x1200bf-60-(1).jpg", "https://audio.jukehost.co.uk/fGb2FosmrSjpx8SSZODpS5i8M1mA3O3Y"]
+        ["Amarillo By Morning", "George Strait", "https://i.postimg.cc/Xvj0sgq2/1200x1200bf-60.jpg", "https://audio.jukehost.co.uk/019fe948-84de-7180-b750-6915d7bd78e4"],
+        ["These Boots Are Made For Walkin'", "Nancy Sinatra", "https://i.postimg.cc/bdc7kxKX/71l4Jku5yu-L-SL1200.jpg", "https://audio.jukehost.co.uk/019fe94c-33cd-711e-b2e0-2c14a1732c6a"],
+        ["Ring Of Fire", "Johnny Cash", "https://i.postimg.cc/8c2Sw-Qfq/249479.jpg", "https://audio.jukehost.co.uk/019fe95c-d9ac-7161-a304-aca53e4f6736"],
+        ["Snowqueen Of Texas", "The Mamas & Papas", "https://i.postimg.cc/pT1xhn23/r-584021-1560007496-1920.jpg", "https://audio.jukehost.co.uk/019fe95f-d58f-7097-9320-7cb74a55e195"],
+        ["Southern Nights", "Glen Campbell", "https://i.postimg.cc/T1D8K7NK/1200x1200bf-60-(1).jpg", "https://audio.jukehost.co.uk/019fe961-c259-70f9-a9b6-192371878333"]
     ];
 
     if (activePlaylist.songs.length === 0) {
