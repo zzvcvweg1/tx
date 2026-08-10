@@ -497,10 +497,11 @@ function setupMusicPlayer() {
     if (document.getElementById("player")) return;
 
     const defaultSongs = [
-        ["Sometimes You Can't Make It On Your Own", "U2", "https://mangolith.com/ProjectPics/WfileReUp/GH7irq6.png", "https://audio.jukehost.co.uk/Ky9CuUDTHKofacJVOdC4eWGLX7vc9Tdq"],
-        ["M1 A1", "Gorillaz", "https://mangolith.com/ProjectPics/WfileReUp/vEj7tPn.jpeg", "https://audio.jukehost.co.uk/LZxF8483nd3iFZtJebOPIxEOM8OLdcGu"],
-        ["motherfucker= redeemer", "Godspeed You! Black Emperor", "https://media.pitchfork.com/photos/5929bf4cea9e61561daa7a31/1:1/w_450%2Cc_limit/a2766e8a.jpg", "https://dl.dropboxusercontent.com/scl/fi/lxjlbdidp6zm7u8huw6yu/motherfucker.mp3?rlkey=cqqauq3dkffwcfvr7p5ir2b0p&st=3ypl5rd4"],
-        ["Beautiful Enemy", "Dar Williams", "https://mangolith.com/ProjectPics/WfileReUp/tq1hqFb.jpeg", "https://audio.jukehost.co.uk/fGb2FosmrSjpx8SSZODpS5i8M1mA3O3Y"]
+        ["Amarillo By Morning", "George Strait", "https://i.postimg.cc/Xvj0sgq2/1200x1200bf-60.jpg", "https://audio.jukehost.co.uk/Ky9CuUDTHKofacJVOdC4eWGLX7vc9Tdq"],
+        ["These Boots Are Made For Walkin'", "Nancy Sinatra", "https://i.postimg.cc/bdc7kxKX/71l4Jku5yu-L-SL1200.jpg", "https://audio.jukehost.co.uk/LZxF8483nd3iFZtJebOPIxEOM8OLdcGu"],
+        ["Ring Of Fire", "Johnny Cash", "https://i.postimg.cc/8c2Sw-Qfq/249479.jpg", "https://dl.dropboxusercontent.com/scl/fi/lxjlbdidp6zm7u8huw6yu/motherfucker.mp3?rlkey=cqqauq3dkffwcfvr7p5ir2b0p&st=3ypl5rd4"],
+        ["Snowqueen Of Texas", "The Mamas & Papas", "https://i.postimg.cc/pT1xhn23/r-584021-1560007496-1920.jpg", "https://audio.jukehost.co.uk/fGb2FosmrSjpx8SSZODpS5i8M1mA3O3Y"],
+        ["Southern Nights", "Glen Campbell", "https://i.postimg.cc/T1D8K7NK/1200x1200bf-60-(1).jpg", "https://audio.jukehost.co.uk/fGb2FosmrSjpx8SSZODpS5i8M1mA3O3Y"]
     ];
 
     if (activePlaylist.songs.length === 0) {
