@@ -268,7 +268,7 @@ $("#game_window")[0].style.backgroundColor = nct_stuff.themes[nct_stuff.selected
 
 $(".container")[0].style.backgroundColor = "#D28D34";
 
-document.getElementById("header").src = "https://i.postimg.cc/HkNfMrtQ/Untitled-25-July-2026-at-10-04-25-2.png";
+document.getElementById("header").src = "https://i.postimg.cc/fbn5D3Gn/5F150719-B504-4ED2-84E7-09BE0C700EBB.png";
 
 document.body.background = "https://i.postimg.cc/YqS7bFLc/background-tx2026-5.jpg";
 
@@ -328,6 +328,16 @@ style.innerHTML = `
   #ev_est, #overall_result p {
     display: none;
   }
+  .footer {
+    border-width: .375em 0 .1em;
+    padding: .5em; margin-bottom: 1em;
+    border-style: double none solid; 
+  }
+
+  .footer hr {
+    display: none; 
+  }
+
   .overlay_window h3 {
     background-color: #D28D34;
   }
