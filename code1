@@ -4,7 +4,7 @@ campaignTrail_temp.election_json = [
         "pk": 3,
         "fields": {
             "year": 2026,
-            "summary": "<p>The second year of Donald Trump’s second term has been nothing short of chaotic. Due to all of the ICE raids, the poor economy, the Epstein files, and the unpopular Iran war, Trump’s popularity has tanked nationwide, and it has also tanked in a state MAGA holds strong, that being Texas.</p> <ul><li>State Representative James Talarico has to overcome an uphill battle if he wants to become the first Democrat elected to the US Senate in Texas since 1988.</li><li>State Attorney General Ken Paxton needs to hold the MAGA movement together going up against incumbent Senator John Cornyn in the Republican runoff, despite his scandalous history.</li></ul>\n",
+            "summary": "<p>The second year of Donald Trump’s second term has been nothing short of chaotic. Due to all of the ICE raids, the poor economy, the Epstein files, and the unpopular Iran war, Trump’s popularity has tanked nationwide, and it has also tanked in a state where MAGA holds strong, that being Texas.</p> <ul><li>State Representative James Talarico has to overcome an uphill battle if he wants to become the first Democrat elected to the US Senate in Texas since 1988.</li><li>State Attorney General Ken Paxton needs to hold the MAGA movement together as he goes up against incumbent Senator John Cornyn in the Republican runoff, despite his scandalous history.</li></ul>\n",
             "image_url": "https://i.imgur.com/H9g2dig.png",
             "winning_electoral_vote_number": 270,
             "advisor_url": "https://www.jetsimon.com/public/static/images/carville-rove.jpg",
