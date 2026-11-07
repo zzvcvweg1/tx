@@ -28,7 +28,7 @@ campaignTrail_temp.candidate_json = [
             "party": "Democrat",
             "state": "Travis",
             "priority": 1,
-            "description": "<p>Over a decade ago, James Talarico was a middle school teacher at Rhodes Middle School in West San Antonio. In 2018, at only 29 years old, he was elected to the Texas State House, where he, among other things, passed reforms to the state's school finance system and combated high insulin drug prices. After appearing on The Joe Rogan Experience in 2025, he began to attract media attention and announced his candidacy for the U.S. Senate a few months later. After an interview that was prevented from being broadcast on The Late Show with Stephen Colbert amassed over five million views on YouTube in its first 24 hours, it boosted his name recognition, and he went on to win his primary against Congresswoman Jasmine Crockett.</p><p>Texas has not elected a Democrat to the U.S. Senate since 1988. However, with Trump’s unpopularity and a blue wave seeming inevitable, it’s entirely possible for Talarico to be the Democrat who pulls the sword out of the stone.</p>",
+            "description": "<p><b>COMING SOON</b></p><p>Over a decade ago, James Talarico was a middle school teacher at Rhodes Middle School in West San Antonio. In 2018, at only 29 years old, he was elected to the Texas State House, where he, among other things, passed reforms to the state's school finance system and combated high insulin drug prices. After appearing on The Joe Rogan Experience in 2025, he began to attract media attention and announced his candidacy for the U.S. Senate a few months later. After an interview that was prevented from being broadcast on The Late Show with Stephen Colbert amassed over five million views on YouTube in its first 24 hours, it boosted his name recognition, and he went on to win his primary against Congresswoman Jasmine Crockett.</p><p>Texas has not elected a Democrat to the U.S. Senate since 1988. However, with Trump’s unpopularity and a blue wave seeming inevitable, it’s entirely possible for Talarico to be the Democrat who pulls the sword out of the stone.</p>",
             "color_hex": "#2460AB",
             "secondary_color_hex": "#8eb7d1",
             "is_active": 1,
@@ -784,13 +784,82 @@ function setupMusicPlayer() {
 }
 setupMusicPlayer();
 
+const startScreenUpdater = setInterval(function() {
+    const goBackButton = document.getElementById("candidate_id_back");
+    const candidateButton = document.getElementById("candidate_id_button");
+    const runningMateButton = document.getElementById("running_mate_id_button");
+    const finalScreenBB = document.getElementById("opponent_selection_id_back");
+    const finalScreenID = document.getElementById("opponent_selection_id_button");
+    const candidateSelect = document.getElementById("candidate_id");
+
+    if (candidateSelect && !runningMateButton) { // change theme on candidate viewing
+        const c = candidateSelect.value;
+
+        if (c == 16 && !candidateButton) {
+            if (goBackButton) goBackButton.click();
+            const initContinue = document.getElementById("election_id_button");
+            if (initContinue) initContinue.click();
+        }
+        else if (c == 17 ) {
+            if (candidateButton) {
+                candidateButton.remove();
+            }
+        }
+    }
+
+    if (finalScreenID) { // delete back button and delete the interval
+        if (finalScreenBB) {
+            finalScreenBB.remove();
+        }
+        clearInterval(startScreenUpdater);
+    }
+}, 100);
+
+
 // Changing States to County
+
+if (!e.done) {
+e.done = true;
+
+styling = document.createElement("style");
+document.head.appendChild(styling);
+
+styling.innerHTML = `
+#opponent_selection_id_back {
+    display: none;
+}
+`
+
+let z = new MutationObserver((mutationsList, observer) => {
+    let runningMateSummary = document.querySelector("#running_mate_summary");
+    if (runningMateSummary) {
+        $("#running_mate_id_button").click();
+        observer.disconnect()
+    }
+});
+
+
+z.observe(document, { subtree: true, childList: true });
+
+}
 
 e.HomeStateText = "Home County:";
 
+const _originalQuestionHTML = window.questionHTML;
+window.questionHTML = function(...args) {
+    _originalQuestionHTML.apply(this, args);
+
+    const mapButton = document.getElementById("view_electoral_map");
+	const answerButton = document.getElementById("answer_select_button");
+    if (mapButton && answerButton) {
+        mapButton.innerText = "Latest Polls/Election Map";
+		answerButton.innerText = "CONTINUE";
+    }
+};
+
 document.getElementById("inner_window_1").children[0].innerHTML = `Do you have what it takes to win a State Election?</h3>`
 
-document.getElementById("inner_window_1").children[1].innerHTML = `  <li>Select a year and a candidate to find out.</li>  <li>You will answer questions about your platform and positions, and also about your campaign strategy.</li>  <li>The answers will affect your popularity for better or worse, both state-wide and in individual counties.</li>  <li>Walk the fine line between appealing to your base and winning a majority of the votes.</li> <li>Additionally, the game has been modified to support unofficial, community-made custom scenarios. (or, mods.)</li>  <li>To load a mod, scroll down below to view the mod selection, select a mod, click submit, and then press "Click Here to Begin!".</li>  <li>Alternatively, click the 'Custom Mod Loader' button to load a mod by copying and pasting the codes, or even save them!</li>`
+document.getElementById("inner_window_1").children[1].innerHTML = `  <li>Select a year and a candidate to find out.</li>  <li>You will answer questions about your platform and positions, and also about your campaign strategy.</li>  <li>The answers will affect your popularity for better or worse, both state-wide and in individual counties.</li>  <li>Walk the fine line between appealing to your base and winning a majority of the votes.</li>`
 
 function modifyForm() {
   try {
@@ -810,7 +879,7 @@ window.setInterval(modifyForm,200)
 function changeOpponentSelectionDescription() {
   try {
     const opponentSelectionDescription = document.getElementById("opponent_selection_description_window");
-    opponentSelectionDescription.innerHTML = `<p><strong>Use a plurality voting system.</strong></p><p>Ever since the ratification of the 17th Amendment in 1913, most states have used a plurality voting system to elect U.S. senators. This means the election is essentially a popularity contest -- whichever candidate receives <br>the most votes wins.</p><p>This method can make it hard for third-party candidates to win and can encourage tactical voting and wasted votes. On the other hand, it can provide swift and simple election results and makes every vote equal.</p>`;
+    opponentSelectionDescription.innerHTML = `<p><strong>Use a plurality voting system.</strong></p><p>Ever since the ratification of the 17th Amendment in 1913, most states have used a plurality voting system to elect U.S. senators. This means the election is essentially a popularity contest -- whichever candidate receives the most votes wins.</p><p>This method can make it hard for third-party candidates to win and can encourage tactical voting and wasted votes. On the other hand, it can provide swift and simple election results and makes every vote equal.</p>`;
   } catch {}
 }
 window.setInterval(changeOpponentSelectionDescription,200)
@@ -826,105 +895,123 @@ async function handleMutations(mutationsList, observer) {
 
     // stop observing
     observer.disconnect();
-	
-	try {
-        const pvswitcher_button = document.getElementById("pvswitcher");
-        if (pvswitcher_button) {
-            if (pvswitcher_button.textContent === "Switch to State Estimate") {
-                pvswitcher_button.textContent = "Switch to County Estimate";
-            }
+
+ const pvswitcher_button = document.getElementById("pvswitcher");
+    if (pvswitcher_button) {
+        if (pvswitcher_button.textContent === "PV Estimate") {
+            pvswitcher_button.textContent = "Popular Vote Estimate";
+        } else if (pvswitcher_button.textContent === "Switch to State Estimate") {
+            pvswitcher_button.textContent = "Switch to County Estimate";
         }
-
-        const ev_button = document.getElementById("ev_est");
-        if (ev_button && ev_button.textContent !== "Counties Won Estimate") {
-            ev_button.textContent = "Counties Won Estimate";
-        }
-
-        const state_info = document.getElementById("state_info");
-        if (state_info && state_info.children.length > 0) {
-            const state_info_header = state_info.children[0];
-            if (state_info_header && state_info_header.textContent.includes("STATE SUMMARY")) {
-                state_info_header.textContent = "COUNTY SUMMARY";
-            }
-        }
-
-        const overall_result = document.getElementById("overall_result");
-        if (overall_result && overall_result.children.length > 0) {
-            const overall_result_header = overall_result.children[0];
-            if (overall_result_header && (overall_result_header.textContent.includes("ELECTORAL VOTES") || overall_result_header.textContent.includes("DELEGATES"))) {
-                overall_result_header.textContent = "COUNTIES WON";
-            }
-        }
-
-        const state_result = document.getElementById("state_result");
-        if (state_result && state_result.children.length > 0) {
-            const state_result_header = state_result.children[0];
-            if (state_result_header && state_result_header.textContent.includes("STATE RESULTS")) {
-                state_result_header.textContent = "COUNTY RESULTS";
-            }
-
-            const state_result_text = state_result.children[1];
-            if (state_result_text) {
-                state_result_text.textContent = state_result_text.textContent
-                    .replace(/state/g, "county")
-                    .replace(/State/g, "County");
-            }
-        }
-
-        document.querySelectorAll("table th, .final_results_table th").forEach((th) => {
-            if (th.textContent.trim() === "Electoral Votes") {
-                th.textContent = "Counties Won";
-            }
-        });
-
-        const state_results_button = document.getElementById("state_results_button");
-        if (state_results_button && state_results_button.textContent === "Results by State") {
-            state_results_button.textContent = "Results by County";
-        }
-
-        document.querySelectorAll(".title_h3, h3").forEach((header) => {
-            if (header.textContent === "Election Results and Data by State") {
-                header.textContent = "Election Results and Data by County";
-            }
-        });
-
-        const sort_tab = document.getElementById("sort_tab");
-        if (sort_tab) {
-            const queryTwo = sort_tab.querySelector('option[value="2"]');
-            if (queryTwo) queryTwo.remove();
-
-            const queryThree = sort_tab.querySelector('option[value="3"]');
-            if (queryThree && queryThree.textContent === "Closest States") {
-                queryThree.textContent = "Closest Counties";
-            }
-        }
-
-        const sort_tab_area = document.getElementById("sort_tab_area");
-        if (sort_tab_area && sort_tab_area.firstElementChild) {
-            const sort_text = sort_tab_area.firstElementChild.firstChild;
-            if (sort_text && sort_text.textContent && sort_text.textContent.startsWith("View states by:")) {
-                sort_text.textContent = "View counties by:" + sort_text.textContent.slice("View states by:".length);
-            }
-        }
-
-        const state_tab_area = document.getElementById("state_tab_area");
-        if (state_tab_area && state_tab_area.firstElementChild) {
-            const state_text = state_tab_area.firstElementChild.firstChild;
-            if (state_text && state_text.textContent && state_text.textContent.startsWith("Select a state:")) {
-                state_text.textContent = "Select a County:" + state_text.textContent.slice("Select a state:".length);
-            }
-        }
-
-    } catch (err) {
-        console.error("Observer error:", err);
-    } finally {
-        // resume observer
-		const gameWindow = document.getElementById("game_window");
-        if (gameWindow) {
-            observer.observe(gameWindow, { childList: true, subtree: true });
-        }
-        observerRunning = false;
     }
+
+    const replaceUpTo = "Electoral Votes".length;
+
+    // replace "electoral votes" with "seats"
+    const ev_button = document.getElementById("ev_est");
+    const seat_text = "Counties Won Estimate";
+    if (ev_button && ev_button.textContent !== seat_text) {
+        ev_button.textContent = seat_text;
+    }
+
+    const state_info = document.getElementById("state_info")
+    if (state_info) {
+        const state_info_header = state_info.children[0];
+        if (state_info_header && state_info_header.textContent !== "County Summary") {
+            state_info_header.textContent = "COUNTY SUMMARY";
+        }
+
+        const ev_number = state_info.children[3];
+        if (ev_number && ev_number.textContent.slice(0, replaceUpTo) === "Electoral Votes") {
+            ev_number.textContent = " ";
+        }
+    }
+
+    const overall_result = document.getElementById("overall_result");
+    if (overall_result) {
+        const overall_result_header = overall_result.children[0];
+        if (overall_result_header && overall_result_header.textContent === "ELECTORAL VOTES") {
+            overall_result_header.textContent = "OVERALL RESULTS";
+        }
+    }
+
+    const state_result = document.getElementById("state_result");
+    if (state_result) {
+        const state_result_header = state_result.children[0];
+        if (state_result_header && state_result_header.textContent !== "County Results") {
+            state_result_header.textContent = "COUNTY RESULTS";
+        }
+        const state_result_text = state_result.children[1];
+        if (state_result_text) {
+            if (state_result_text.textContent === "Click on a state to view final results.") {
+                state_result_text.textContent = "Click on a county to view final results.";
+            } else if (state_result_text.textContent === "Click on a state to view detailed results (once returns for that state arrive).") {
+                state_result_text.textContent = "Click on a county to view detailed results (once returns for that county arrive).";
+            } else if (state_result_text.textContent === "Returns for this state are not yet available!") {
+                state_result_text.textContent = "Returns for this county are not yet available!";
+            }
+        }
+        const state_result_evs = state_result.children[2];
+        if (state_result_evs && state_result_evs.textContent.slice(0, replaceUpTo) === "Electoral Votes") {
+            state_result_evs.textContent = " "; state_result_evs.textContent.slice(replaceUpTo);
+        }
+    }
+
+    const final_results = document.getElementsByClassName("final_results_table");
+    if (final_results && final_results.length > 0) {
+        replaceTableHeaders(final_results[0])
+    }
+
+    const overall_details = document.querySelectorAll("#overall_election_details, #state_result_data_summary");
+    for (const table_container of overall_details) {
+        replaceTableHeaders(table_container.children[1])
+    }
+
+    const state_results_button = document.getElementById("state_results_button");
+    if (state_results_button && state_results_button.textContent === "Results by State") {
+        state_results_button.textContent = "Results by County";      
+    }
+
+    const headers = document.getElementsByClassName("title_h3");
+    for (const header of headers) {
+        if (header.textContent === "Election Results and Data by State") {
+            header.textContent = "Election Results and Data by County";
+        }
+    }
+
+    const sort_tab = document.getElementById("sort_tab");
+    if (sort_tab && sort_tab.querySelector('option[value="2"]')) {
+        const queryTwo = sort_tab.querySelector('option[value="2"]');
+        if (queryTwo) {
+            queryTwo.remove();
+        }
+    }
+    if (sort_tab && sort_tab.querySelector('option[value="3"]')) {
+        const queryThree = sort_tab.querySelector('option[value="3"]');
+        if (queryThree.textContent === "Closest States") {
+            queryThree.textContent = "Closest Counties"
+        }
+    }
+
+    const sort_tab_area = document.getElementById("sort_tab_area");
+    if (sort_tab_area) {
+        const sort_text = sort_tab_area.firstElementChild.firstChild;
+        if (sort_text.textContent.startsWith("View states by:")) {
+            sort_text.textContent = "View counties by:" + sort_text.textContent.slice("View counties by:".length);
+        }
+    }
+
+    const state_tab_area = document.getElementById("state_tab_area");
+    if (state_tab_area) {
+        const state_text = state_tab_area.firstElementChild.firstChild;
+        if (state_text.textContent.startsWith("Select a state:")) {
+            state_text.textContent = "Select a County:" + state_text.textContent.slice("Select a County:".length);
+        }
+    }
+
+    // Resume observing
+    observer.observe(document.documentElement, { childList: true, subtree: true });
+    observerRunning = false;
 }
 
 function replaceTableHeaders(table) {
@@ -946,9 +1033,6 @@ function replaceTableHeaders(table) {
 }
 
 let singleObserver = new MutationObserver(handleMutations);
-const gameWindow = document.getElementById("game_window");
-if (gameWindow) {
-    singleObserver.observe(gameWindow, { childList: true, subtree: true });
-}
+singleObserver.observe(document.documentElement, { childList: true, subtree: true });
 
 //#endcode
