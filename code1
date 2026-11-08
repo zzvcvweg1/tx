@@ -896,6 +896,7 @@ async function handleMutations(mutationsList, observer) {
     // stop observing
     observer.disconnect();
 
+    try {
  const pvswitcher_button = document.getElementById("pvswitcher");
     if (pvswitcher_button) {
         if (pvswitcher_button.textContent === "PV Estimate") {
@@ -917,7 +918,7 @@ async function handleMutations(mutationsList, observer) {
     const state_info = document.getElementById("state_info")
     if (state_info) {
         const state_info_header = state_info.children[0];
-        if (state_info_header && state_info_header.textContent !== "County Summary") {
+        if (state_info_header && state_info_header.textContent.includes("STATE SUMMARY")) {
             state_info_header.textContent = "COUNTY SUMMARY";
         }
 
@@ -930,15 +931,15 @@ async function handleMutations(mutationsList, observer) {
     const overall_result = document.getElementById("overall_result");
     if (overall_result) {
         const overall_result_header = overall_result.children[0];
-        if (overall_result_header && overall_result_header.textContent === "ELECTORAL VOTES") {
-            overall_result_header.textContent = "OVERALL RESULTS";
+        if (overall_result_header && (overall_result_header.textContent.includes("ELECTORAL VOTES") || overall_result_header.textContent.includes("DELEGATES"))) {
+            overall_result_header.textContent = "COUNTIES WON";
         }
     }
 
     const state_result = document.getElementById("state_result");
     if (state_result) {
         const state_result_header = state_result.children[0];
-        if (state_result_header && state_result_header.textContent !== "County Results") {
+        if (state_result_header && state_result_header.textContent.includes("STATE RESULTS")) {
             state_result_header.textContent = "COUNTY RESULTS";
         }
         const state_result_text = state_result.children[1];
@@ -994,39 +995,38 @@ async function handleMutations(mutationsList, observer) {
     }
 
     const sort_tab_area = document.getElementById("sort_tab_area");
-    if (sort_tab_area) {
+    if (sort_tab_area && sort_tab_area.firstElementChild) {
         const sort_text = sort_tab_area.firstElementChild.firstChild;
-        if (sort_text.textContent.startsWith("View states by:")) {
-            sort_text.textContent = "View counties by:" + sort_text.textContent.slice("View counties by:".length);
+        if (sort_text && sort_text.textContent && sort_text.textContent.startsWith("View states by:")) {
+            sort_text.textContent = "View counties by:" + sort_text.textContent.slice("View states by:".length);
         }
     }
 
     const state_tab_area = document.getElementById("state_tab_area");
-    if (state_tab_area) {
+    if (state_tab_area && state_tab_area.firstElementChild) {
         const state_text = state_tab_area.firstElementChild.firstChild;
-        if (state_text.textContent.startsWith("Select a state:")) {
-            state_text.textContent = "Select a County:" + state_text.textContent.slice("Select a County:".length);
+        if (state_text && state_text.textContent && state_text.textContent.startsWith("Select a state:")) {
+            state_text.textContent = "Select a County:" + state_text.textContent.slice("Select a state:".length);
         }
     }
 
-    // Resume observing
-    observer.observe(document.documentElement, { childList: true, subtree: true });
-    observerRunning = false;
+    } catch (err) {
+        console.error("Observer error:", err);
+    } finally {
+        observer.observe(document.documentElement, { childList: true, subtree: true });
+        observerRunning = false;
+    }
 }
 
 function replaceTableHeaders(table) {
     if (table && table.firstElementChild && table.firstElementChild.firstElementChild) {
         const table_headers_container = table.firstElementChild.firstElementChild;
-        const candidate_header = table_headers_container.children[0];
-        if (candidate_header.textContent === "Candidate") {
-            candidate_header.textContent = "Candidate";
-        }
         const ev_header = table_headers_container.children[1];
-        if (ev_header.textContent === "Electoral Votes") {
+        if (ev_header && ev_header.textContent === "Electoral Votes") {
             ev_header.textContent = "Counties Won";
         }
         const ev_header_alt = table_headers_container.children[3];
-        if (ev_header_alt.textContent === "Electoral Votes") {
+        if (ev_header_alt && ev_header_alt.textContent === "Electoral Votes") {
             ev_header_alt.textContent = "Counties Won";
         }
     }
