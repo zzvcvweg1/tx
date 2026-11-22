@@ -354,6 +354,20 @@ style.innerHTML = `
     margin-bottom: .5em;
     accent-color: #4C454B;
   }
+  #game_window:has(> .inner_window_question) {
+    height: auto;
+    min-height: 45em;
+  }
+  #game_window:has(> .inner_window_question) > g {
+    display: flow-root;
+  }
+  #game_window:has(> .inner_window_question) #candidate_pic,
+  #game_window:has(> .inner_window_question) #running_mate_pic {
+    height: 13.5em;
+  }
+  #game_window:has(> .inner_window_question) .inner_window_sign_display {
+    height: 12.6em;
+  }
   #overall_result_container {
     background-color: #3775CF;
   }
