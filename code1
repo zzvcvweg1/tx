@@ -356,7 +356,7 @@ style.innerHTML = `
   }
   #game_window:has(> .inner_window_question) {
     height: auto;
-    min-height: 45em;
+    min-height: max(45em, var(--talarico-question-height, 0px));
   }
   #game_window:has(> .inner_window_question) > g {
     display: flow-root;
@@ -405,6 +405,41 @@ style.innerHTML = `
 
 
 document.head.appendChild(style);
+
+const talaricoQuestionWindow = document.getElementById("game_window");
+if (talaricoQuestionWindow && window.ResizeObserver) {
+    let largestQuestionHeight = 0;
+    let largestPanelHeight = 0;
+    let currentQuestionPanel = null;
+    const panelObserver = new ResizeObserver(() => {
+        if (!currentQuestionPanel || !currentQuestionPanel.isConnected) return;
+        const panelHeight = parseFloat(getComputedStyle(currentQuestionPanel).height);
+        if (Number.isFinite(panelHeight) && panelHeight > largestPanelHeight + 0.5) {
+            largestPanelHeight = panelHeight;
+            currentQuestionPanel.style.minHeight = `${largestPanelHeight}px`;
+        }
+    });
+    const checkQuestionPanel = () => {
+        const nextPanel = talaricoQuestionWindow.querySelector(":scope > .inner_window_question");
+        if (nextPanel === currentQuestionPanel) return;
+        if (currentQuestionPanel) panelObserver.unobserve(currentQuestionPanel);
+        currentQuestionPanel = nextPanel;
+        if (nextPanel) {
+            if (largestPanelHeight) nextPanel.style.minHeight = `${largestPanelHeight}px`;
+            panelObserver.observe(nextPanel);
+        }
+    };
+    new MutationObserver(checkQuestionPanel).observe(talaricoQuestionWindow, {childList: true});
+    checkQuestionPanel();
+    new ResizeObserver(() => {
+        if (!talaricoQuestionWindow.querySelector(":scope > .inner_window_question")) return;
+        const currentHeight = parseFloat(getComputedStyle(talaricoQuestionWindow).height);
+        if (Number.isFinite(currentHeight) && currentHeight > largestQuestionHeight + 0.5) {
+            largestQuestionHeight = currentHeight;
+            talaricoQuestionWindow.style.setProperty("--talarico-question-height", `${largestQuestionHeight}px`);
+        }
+    }).observe(talaricoQuestionWindow);
+}
 
 // This is a recreation of the music player
 // showcased in the mod Project 2024 sneak peeks.
