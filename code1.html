@@ -256,6 +256,8 @@ jet_data = {
 
 //#startcode
 
+corrr = '\n              <h2>DEEP IN THE HEART</h2>            \n';
+
 nct_stuff.themes[nct_stuff.selectedTheme].coloring_title = "#4C454B";
 
 document.body.style.backgroundSize = "cover"
@@ -272,7 +274,18 @@ document.getElementById("header").src = "https://i.postimg.cc/fbn5D3Gn/5F150719-
 
 document.body.background = "https://i.postimg.cc/YqS7bFLc/background-tx2026-5.jpg";
 
-document.head.innerHTML += "<style>#results_container {color:#000000;} .inner_window_w_desc {background-color:#3775CF!important;}</style>";
+document.head.innerHTML += "<style>#results_container {color:#000000;} .inner_window_w_desc {background-color:transparent!important;}</style>";
+
+document.title = "2026 TX Senate: Deep in the Heart";
+
+document.querySelectorAll("link[rel*='icon']").forEach(el => el.remove());
+ 
+const favican = document.createElement("link");
+favican.rel = "icon";
+favican.type = "png";
+favican.href = "https://i.postimg.cc/KzpQq6TR/5be1369c177d13ec66284aa3425846a7.webp";
+
+document.head.appendChild(favican);
 
 RecReading=true
 
@@ -299,12 +312,18 @@ style.innerHTML = `
   .campaign_trail_start_emphasis {
     background-color: #4C454B;
   }
+  #game_window {
+    background: linear-gradient(#3775CF 60%, #245296) !important;
+  }
   #state_info h3, #overall_result h3, #state_result h3 {
     background-color: #D28D34;
     color: white;
   }
   .game_header, .container, #game_window, .content_single, .footer, .footer hr {
     border-color: white;
+  }
+  .game_header {
+    border-width: 3px;
   }
   .game_header h2 {
     font-style: normal;
@@ -351,7 +370,6 @@ style.innerHTML = `
     border: none;
   }
   .inner_window_question {
-    margin-bottom: .5em;
     accent-color: #4C454B;
   }
   #overall_result_container {
@@ -360,16 +378,11 @@ style.innerHTML = `
   #state_result_container {
     background-color: #3775CF;
   }
-  #candidate_pic {
-    margin-left: 11em;
-    height: 30%;
-    border-color: white;
-  }
-  #running_mate_pic {
-    margin-right: 11em;
-    height: 30%;
-    border-color: white;
-  }
+.inner_window_sign_display { top: 2em; }
+
+#running_mate_pic { height: 32%; margin-right: 10em; margin-top: 1em; }
+
+#candidate_pic { height: 32%; margin-left: 10em; margin-top: 1em; }
   #map_container {
     background: #F8F8F8;
     border-radius: 1px;
